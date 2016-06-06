@@ -14,3 +14,5 @@ until  antfs-cli; do
     echo '-------------->Antfs-cli returns error. Try again !'
     sleep 1
 done"
+
+alias om-garmin="om-antfs-cli; gupload.py -t "running" ~/.config/antfs-cli/3859589564/activities/*.fit; " 
