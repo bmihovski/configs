@@ -2,7 +2,7 @@
 #TODO mechanism to get random picture
 case "$1" in
     lock)
-        i3lock -i ~/lock_pictures/me1.png
+        i3lock -i $(ls ~/lock_pictures/*.png | shuf -n1)
         ;;
     logout)
         i3-msg exit
