@@ -11,3 +11,4 @@ ln -s ~/config/zsh/custom ~/.oh-my-zsh/custom
 
 ln -s ~/config/tmux/tmux.conf ~/.tmux.conf
 
+cd vim_setup; ./install.sh
