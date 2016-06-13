@@ -4,11 +4,7 @@ Vim setup
 How to install
 --------------
 
-Clone the repository
-
-`git clone https://github.com/ovidiumiron/vim_setup.git`
-
-Run 
+Run
 
 `./install.sh`
 
