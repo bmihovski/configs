@@ -1,0 +1,241 @@
+autocmd! bufwritepost .vimrc source % " automatic reloading .vimrc when you
+                                      " save the file
+set mouse=a                           " enable mouse
+let mapleader=","                     " rename leader
+
+" --------------------------- Vim directory ----------------------------------
+set dir=~/.vim/vimswap_files/            " swap directory
+if version >= 703
+    set undodir=~/.vim/undodir           " undo directory
+    set undofile
+endif
+" ----------------------- Custom Movements ------------------------------------
+" naigate between windows; bind Ctrl+<movement> keys to move around the
+" windows, instead of using Ctrl + w+ <movement>
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
+inoremap <c-j> <esc><c-w>j
+inoremap <c-k> <esc><c-w>k
+inoremap <c-l> <esc><c-w>l
+inoremap <c-h> <esc><c-w>h
+" easy intentation; when you are in visual mode and press '>' or '<' don't lose
+" selection
+vnoremap < <gv
+vnoremap > >gv
+" jk is escape
+inoremap jk <esc>
+set hidden          " leaving modified buffers; default vim will not abandon
+                    " the current buffer until any changes has been written
+" ---------------------------UI Config---------------------------------------
+filetype on
+filetype indent plugin on
+syntax enable
+set number
+set showmatch
+set nowrap
+set fo-=t
+if version >= 703
+    if exists('+colorcolumn')
+        set colorcolumn=80
+    endif
+endif
+set hlsearch        " highlight all search pattern match
+" press Space to turn off highlighting and clear any message already displayed.
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+set incsearch
+set autoindent
+set smartindent
+set nofoldenable
+
+" Powerline setup
+set guifont=Mono\ Sans\ Mono\ for\ Powerline\ 2
+set laststatus=2
+
+"FIRST------------------------------------------------
+set t_Co=256 " enable 256 colors; put BEFORE setting the colorscheme
+"SECOND------------------------------------------------
+set background=dark
+colorscheme blackboard " backboard is a colorschema obtains from
+                       " http://www.boronine.com/husl/syntax/#041014
+"THIRD------------------------------------------------
+" show whitespace; MUST insert AFTER colorschema command
+highlight ExtraWhitespace ctermbg=blue guibg=blue
+match ExtraWhitespace /\s\+$/
+"--------------------------------------------------------------------------
+
+set history=700
+set undolevels=700
+set nocompatible
+set wildmenu        " enhanced command-line completion
+" -------------------------Space & Tabs---------------------------------------
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " number of spaces in tab when editing
+set expandtab       " tab are spaces
+set shiftwidth=4
+set shiftround
+
+" -------------------- Bundles ---------------------------------
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc() " let Vundle manage Vundle
+
+Bundle 'gmarik/vundle'
+Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'scrooloose/nerdtree'
+
+Bundle 'klen/python-mode'
+Bundle 'davidhalter/jedi-vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'majutsushi/tagbar'
+
+Bundle 'tyru/current-func-info.vim'
+" ---------
+Bundle 'scrooloose/syntastic'
+" >>>>>> undo tree
+Bundle 'sjl/gundo.vim' 
+nnoremap <leader>u :GundoToggle<CR>   " toggle gundo
+" <<<<<<
+" ---------------- Tabular
+Bundle 'godlygeek/tabular'
+" ----------------- End Tabular
+" required by vim-snipmate
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+" end required by vim-snipmate
+Bundle 'garbas/vim-snipmate'
+" Pleanty of snippets
+Bundle 'honza/vim-snippets'
+
+Bundle 'rodjek/vim-puppet'
+
+""""""""""""""Bundle youcompleteme 
+let g:syntastic_enable_signs=1
+"let g:syntastic_quiet_messages = {'level': 'warnings'}
+let g:syntastic_auto_loc_list=1
+let g:syntastic_enable_balloons=1
+"---------------------------
+"
+"
+"
+" Python-mode
+" Activate rope
+" Keys:
+" K             Show python docs
+"   Rope autocomplete
+" g     Rope goto definition
+" d     Rope show documentation
+" f     Rope find occurrences
+" b     Set, unset breakpoint (g:pymode_breakpoint enabled)
+" [[            Jump on previous class or function (normal, visual, operator modes)
+" ]]            Jump on next class or function (normal, visual, operator modes)
+" [M            Jump on previous class or method (normal, visual, operator modes)
+" ]M            Jump on next class or method (normal, visual, operator modes)
+let g:pymode_rope = 0
+
+" Documentation
+let g:pymode_doc = 0
+let g:pymode_doc_key = 'K'
+let g:pymode_rope_show_doc_bind = '<C-c>d'
+
+"Linting
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+" Auto check on save
+let g:pymode_lint_write = 1
+
+" Support virtualenv
+let g:pymode_virtualenv = 0
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = 'b'
+let g:pymode_breakpoint_cmd =  'import ipdb;ipdb.set_trace() ### XXX BREAKPOINT'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+let g:pymode_trim_whitespaces = 1
+let g:pymode_folding = 0
+
+"for vim-jedi
+let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#popup_on_dot = 1
+let g:jedi#popup_select_first = 1
+
+" I don't want the docstring window to popup during completion
+" This depends on the completeopt option. Jedi initializes it in its ftplugin.
+"Add the following line to your .vimrc to disable it:
+autocmd FileType python setlocal completeopt-=preview
+
+" Search for selected text, forwards or backwards.
+" http://vim.wikia.com/wiki/Search_for_visually_selected_text
+" next match is n. previous match is N
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+" easy navigation between buffers
+" don't forgot to disable F1 from gnome-terminal Edit->Keyboard Shortcuts
+map <F1> :bp<CR>
+imap <F1> :bp<CR>
+map <F2> :bn<CR>
+imap <F2> :bn<CR>
+
+" show all buffers
+map <F3> :buffers<CR>:buffer<Space>
+imap <F3> <ESC>:buffers<CR>:buffer<Space>
+" very usefull those command to transform buffer to windows
+":vertical sb 3 Create a vertical split and show buffer number 3 in the window to the left.
+":vertical rightbelow sfind file.txt Create a vertical split and read file.txt into the buffer in the right window.
+":rightbelow sfind file.txt Create a horizontal split and read file.txt into the buffer in the bottom window.
+
+" enter to open in current windows
+" s open in vertical split
+" i open in horizontal split
+map <F4> :NERDTreeToggle<CR>
+imap <F4> <ESC>:NERDTreeToggle<CR>
+
+" copy and paste
+" Vim provides the 'paste' option to aid in pasting text unmodified from other
+" applications. You can set it manually like: set paste. Vim offers the
+" pastetoggle option to paste on or off
+set pastetoggle=<F5>
+set clipboard=unnamed
+
+" search for a word under the cursor in all files
+map <F7> :noautocmd execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+
+map <F8> :TagbarToggle<CR>
+imap <F8> <ESC>:TagbarToggle<CR>
+
+" close location list normal mode 
+" Syntastic uses location list for showing the errors
+nnoremap <F12> :lclose<CR> 
+vnoremap <F12> :lclose<CR>
+inoremap <F12> <ESC>:lclose<CR>
+
+"for tags go to https://gist.github.com/hman/33562c545328f643a2fe
+"run the mktags.py in the root of the buildout
+nnoremap <C-]> :execute 'tj' expand('<cword>')<CR>zv
+set tags+=./tags;$HOME
+
+" ------------ Associate extension with filetype
+autocmd BufNewFile,BufRead *.zpt  set filetype=xml    "  zpt files are xml
+autocmd BufNewFile,BufRead *.zcml set filetype=xml   "  zcml,pt files are xml
+autocmd BufNewFile,BufRead *.pt   set filetype=xml     "  pt files are xml
+autocmd BufNewFile,BufRead *.pp   set filetype=puppet  "  pp files are puppet
+autocmd BufNewFile,BufRead *.ovidiu   set filetype=ovidiu "  pp files are puppet
+" ---------------------------- include custom functions ----------------------
+source $HOME/.vim/custom_functions/gitblame.vim
+source $HOME/.vim/custom_functions/bufsel.vim
+source $HOME/.vim/custom_functions/xclip.vim
