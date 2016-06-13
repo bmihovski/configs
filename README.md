@@ -9,3 +9,5 @@ ln -s ~/config/zsh/zshrc ~/.zshrc
 
 ln -s ~/config/zsh/custom ~/.oh-my-zsh/custom
 
+ln -s ~/config/tmux/tmux.conf ~/.tmux.conf
+
