@@ -30,7 +30,7 @@ font pango:Monospace 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec /usr/local/bin/st
+bindsym $mod+Return exec /usr/local/bin/st -e tmux
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -209,3 +209,6 @@ assign [class="chromium"] → $tag1
 # 6. start Chromium and Thunderbird when the i3 is started
 exec --no-startup-id i3-msg 'exec /usr/bin/chromium'
 exec --no-startup-id i3-msg 'exec /usr/bin/thunderbird'
+
+# 7. take a screenshot
+bindsym $mod+P exec /usr/bin/gnome-screenshot
