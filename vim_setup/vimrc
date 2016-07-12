@@ -31,7 +31,7 @@ set hidden          " leaving modified buffers; default vim will not abandon
 " ---------------------------UI Config---------------------------------------
 filetype on
 filetype indent plugin on
-syntax enable
+syntax on
 set number
 set showmatch
 set nowrap
@@ -108,6 +108,9 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
 
 Bundle 'rodjek/vim-puppet'
+Bundle 'fatih/vim-go'
+
+Bundle 'vimwiki/vimwiki'
 
 """"""""""""""Bundle youcompleteme 
 let g:syntastic_enable_signs=1
