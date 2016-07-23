@@ -28,6 +28,7 @@ vnoremap > >gv
 inoremap jk <esc>
 set hidden          " leaving modified buffers; default vim will not abandon
                     " the current buffer until any changes has been written
+" never enter in ex mode 
 nnoremap Q <nop>
 " ---------------------------UI Config---------------------------------------
 filetype on
