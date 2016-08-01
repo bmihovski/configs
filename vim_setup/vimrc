@@ -35,6 +35,9 @@ filetype on
 filetype indent plugin on
 syntax on
 set number
+if version >= 703
+  set relativenumber
+endif
 set showmatch
 set nowrap
 set fo-=t
@@ -244,3 +247,4 @@ autocmd BufNewFile,BufRead *.ovidiu   set filetype=ovidiu "  pp files are puppet
 source $HOME/.vim/custom_functions/gitblame.vim
 source $HOME/.vim/custom_functions/bufsel.vim
 source $HOME/.vim/custom_functions/xclip.vim
+source $HOME/.vim/custom_functions/numbertoggle.vim
