@@ -206,9 +206,8 @@ bindsym $mod+Shift+Tab move workspace to output left
 assign [class="Thunderbird"] → $tag6
 assign [class="chromium"] → $tag1
 
-# 6. start Chromium and Thunderbird when the i3 is started
+# 6. start Chromium when the i3 is started
 exec --no-startup-id i3-msg 'exec /usr/bin/chromium'
-exec --no-startup-id i3-msg 'exec /usr/bin/thunderbird'
 
 # 7. take a screenshot
 bindsym $mod+P exec /usr/bin/gnome-screenshot

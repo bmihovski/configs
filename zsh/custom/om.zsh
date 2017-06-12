@@ -16,3 +16,5 @@ until  antfs-cli; do
 done"
 
 alias om-garmin="om-antfs-cli; gupload.py -t "running" ~/.config/antfs-cli/3859589564/activities/*.fit; " 
+
+alias ntf="notify-send 'DONE !!!' -t 3600000"

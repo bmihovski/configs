@@ -152,10 +152,10 @@ let g:pymode_doc_key = 'K'
 let g:pymode_rope_show_doc_bind = '<C-c>d'
 
 "Linting
-let g:pymode_lint = 1
+let g:pymode_lint = 0
 let g:pymode_lint_checker = "pyflakes,pep8"
 " Auto check on save
-let g:pymode_lint_write = 1
+let g:pymode_lint_write = 0
 
 " Support virtualenv
 let g:pymode_virtualenv = 0
@@ -163,7 +163,7 @@ let g:pymode_virtualenv = 0
 " Enable breakpoints plugin
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_key = 'b'
-let g:pymode_breakpoint_cmd =  'import ipdb;ipdb.set_trace() ### XXX BREAKPOINT'
+let g:pymode_breakpoint_cmd =  'import pdb;pdb.set_trace() ### XXX BREAKPOINT'
 
 " syntax highlighting
 let g:pymode_syntax = 1
