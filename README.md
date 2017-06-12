@@ -1,3 +1,5 @@
+TODO: write a package which install/configure i3, zsh, oh-myzsh, tmux, mc, vim, git, tig
+
 Keeps the configurations file
 -----------------------------
 
